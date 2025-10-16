@@ -1,0 +1,2253 @@
+{
+  "contractName": "KittyCore",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "kittyToOwner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "kitties",
+      "outputs": [
+        {
+          "name": "genes",
+          "type": "uint256"
+        },
+        {
+          "name": "birthTime",
+          "type": "uint64"
+        },
+        {
+          "name": "generation",
+          "type": "uint32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_genes",
+          "type": "uint256"
+        }
+      ],
+      "name": "createTestKitty",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_id",
+          "type": "uint256"
+        }
+      ],
+      "name": "getKitty",
+      "outputs": [
+        {
+          "name": "genes",
+          "type": "uint256"
+        },
+        {
+          "name": "birthTime",
+          "type": "uint64"
+        },
+        {
+          "name": "generation",
+          "type": "uint32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.4.25+commit.59dbf8f1\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"kittyToOwner\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"kitties\",\"outputs\":[{\"name\":\"genes\",\"type\":\"uint256\"},{\"name\":\"birthTime\",\"type\":\"uint64\"},{\"name\":\"generation\",\"type\":\"uint32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_genes\",\"type\":\"uint256\"}],\"name\":\"createTestKitty\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_id\",\"type\":\"uint256\"}],\"name\":\"getKitty\",\"outputs\":[{\"name\":\"genes\",\"type\":\"uint256\"},{\"name\":\"birthTime\",\"type\":\"uint64\"},{\"name\":\"generation\",\"type\":\"uint32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/KittyCore.sol\":\"KittyCore\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/KittyCore.sol\":{\"keccak256\":\"0xc70f0576f10b39245efe439b8852c304f5fbf0288aade8709db9563b6e32bcb0\",\"urls\":[\"bzzr://410e0fd9ac06c354645d72b00eb0fa145b9424653df578a09d6108c3f13039a9\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50610473806100206000396000f300608060405260043610610062576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806387c74868146100675780638cc51eda146100d4578063ca5d420814610143578063e98b7f4d14610184575b600080fd5b34801561007357600080fd5b50610092600480360381019080803590602001909291905050506101f3565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b3480156100e057600080fd5b506100ff60048036038101908080359060200190929190505050610226565b604051808481526020018367ffffffffffffffff1667ffffffffffffffff1681526020018263ffffffff1663ffffffff168152602001935050505060405180910390f35b34801561014f57600080fd5b5061016e60048036038101908080359060200190929190505050610283565b6040518082815260200191505060405180910390f35b34801561019057600080fd5b506101af600480360381019080803590602001909291905050506103af565b604051808481526020018367ffffffffffffffff1667ffffffffffffffff1681526020018263ffffffff1663ffffffff168152602001935050505060405180910390f35b60016020528060005260406000206000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60008181548110151561023557fe5b90600052602060002090600202016000915090508060000154908060010160009054906101000a900467ffffffffffffffff16908060010160089054906101000a900463ffffffff16905083565b600061028d610415565b60006060604051908101604052808581526020014267ffffffffffffffff168152602001600163ffffffff1681525091506001600083908060018154018082558091505090600182039060005260206000209060020201600090919290919091506000820151816000015560208201518160010160006101000a81548167ffffffffffffffff021916908367ffffffffffffffff16021790555060408201518160010160086101000a81548163ffffffff021916908363ffffffff1602179055505050039050336001600083815260200190815260200160002060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055508092505050919050565b6000806000806000858154811015156103c457fe5b9060005260206000209060020201905080600001548160010160009054906101000a900467ffffffffffffffff168260010160089054906101000a900463ffffffff16935093509350509193909250565b60606040519081016040528060008152602001600067ffffffffffffffff168152602001600063ffffffff16815250905600a165627a7a72305820384a0dc8ebe24b6c94e123d44577a67d4a92e9e43ff8c4da8f80a20df3e639bd0029",
+  "deployedBytecode": "0x608060405260043610610062576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806387c74868146100675780638cc51eda146100d4578063ca5d420814610143578063e98b7f4d14610184575b600080fd5b34801561007357600080fd5b50610092600480360381019080803590602001909291905050506101f3565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b3480156100e057600080fd5b506100ff60048036038101908080359060200190929190505050610226565b604051808481526020018367ffffffffffffffff1667ffffffffffffffff1681526020018263ffffffff1663ffffffff168152602001935050505060405180910390f35b34801561014f57600080fd5b5061016e60048036038101908080359060200190929190505050610283565b6040518082815260200191505060405180910390f35b34801561019057600080fd5b506101af600480360381019080803590602001909291905050506103af565b604051808481526020018367ffffffffffffffff1667ffffffffffffffff1681526020018263ffffffff1663ffffffff168152602001935050505060405180910390f35b60016020528060005260406000206000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60008181548110151561023557fe5b90600052602060002090600202016000915090508060000154908060010160009054906101000a900467ffffffffffffffff16908060010160089054906101000a900463ffffffff16905083565b600061028d610415565b60006060604051908101604052808581526020014267ffffffffffffffff168152602001600163ffffffff1681525091506001600083908060018154018082558091505090600182039060005260206000209060020201600090919290919091506000820151816000015560208201518160010160006101000a81548167ffffffffffffffff021916908367ffffffffffffffff16021790555060408201518160010160086101000a81548163ffffffff021916908363ffffffff1602179055505050039050336001600083815260200190815260200160002060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055508092505050919050565b6000806000806000858154811015156103c457fe5b9060005260206000209060020201905080600001548160010160009054906101000a900467ffffffffffffffff168260010160089054906101000a900463ffffffff16935093509350509193909250565b60606040519081016040528060008152602001600067ffffffffffffffff168152602001600063ffffffff16815250905600a165627a7a72305820384a0dc8ebe24b6c94e123d44577a67d4a92e9e43ff8c4da8f80a20df3e639bd0029",
+  "sourceMap": "28:889:1:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;28:889:1;;;;;;;",
+  "deployedSourceMap": "28:889:1:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;191:48;;8:9:-1;5:2;;;30:1;27;20:12;5:2;191:48:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;162:22;;8:9:-1;5:2;;;30:1;27;20:12;5:2;162:22:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;248:349;;8:9:-1;5:2;;;30:1;27;20:12;5:2;248:349:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;605:309;;8:9:-1;5:2;;;30:1;27;20:12;5:2;605:309:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;191:48;;;;;;;;;;;;;;;;;;;;;;:::o;162:22::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;248:349::-;307:4;324:19;;:::i;:::-;468:18;346:111;;;;;;;;;374:6;346:111;;;;413:3;346:111;;;;;;444:1;346:111;;;;;324:133;;512:1;489:7;502:6;489:20;;39:1:-1;33:3;27:10;23:18;57:10;52:3;45:23;79:10;72:17;;0:93;489:20:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:24;468:45;;551:10;524:12;:24;537:10;524:24;;;;;;;;;;;;:37;;;;;;;;;;;;;;;;;;579:10;572:17;;248:349;;;;;:::o;605:309::-;669:13;693:16;720:17;756:19;778:7;786:3;778:12;;;;;;;;;;;;;;;;;;;;756:34;;823:5;:11;;;849:5;:15;;;;;;;;;;;;879:5;:16;;;;;;;;;;;;801:105;;;;;;605:309;;;;;;:::o;28:889::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o",
+  "source": "pragma solidity ^0.4.25;\r\n\r\ncontract KittyCore {\r\n    struct Kitty {\r\n        uint256 genes;\r\n        uint64 birthTime;\r\n        uint32 generation;\r\n    }\r\n\r\n    Kitty[] public kitties;\r\n    mapping (uint256 => address) public kittyToOwner;\r\n\r\n    function createTestKitty(uint256 _genes) external returns (uint) {\r\n        Kitty memory _kitty = Kitty({\r\n            genes: _genes,\r\n            birthTime: uint64(now),\r\n            generation: 1\r\n        });\r\n        uint256 newKittyId = kitties.push(_kitty) - 1;\r\n        kittyToOwner[newKittyId] = msg.sender;\r\n        return newKittyId;\r\n    }\r\n\r\n    function getKitty(uint256 _id) external view returns (\r\n        uint256 genes,\r\n        uint64 birthTime,\r\n        uint32 generation\r\n    ) {\r\n        Kitty storage kitty = kitties[_id];\r\n        return (\r\n            kitty.genes,\r\n            kitty.birthTime,\r\n            kitty.generation\r\n        );\r\n    }\r\n}",
+  "sourcePath": "C:\\Users\\amit\\Desktop\\CPSC-559\\Cryptozombie demo package\\contracts\\KittyCore.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/KittyCore.sol",
+    "exportedSymbols": {
+      "KittyCore": [
+        193
+      ]
+    },
+    "id": 194,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 116,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".25"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:1"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 193,
+        "linearizedBaseContracts": [
+          193
+        ],
+        "name": "KittyCore",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "KittyCore.Kitty",
+            "id": 123,
+            "members": [
+              {
+                "constant": false,
+                "id": 118,
+                "name": "genes",
+                "nodeType": "VariableDeclaration",
+                "scope": 123,
+                "src": "78:13:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 117,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "78:7:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 120,
+                "name": "birthTime",
+                "nodeType": "VariableDeclaration",
+                "scope": 123,
+                "src": "102:16:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint64",
+                  "typeString": "uint64"
+                },
+                "typeName": {
+                  "id": 119,
+                  "name": "uint64",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "102:6:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint64",
+                    "typeString": "uint64"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 122,
+                "name": "generation",
+                "nodeType": "VariableDeclaration",
+                "scope": 123,
+                "src": "129:17:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint32",
+                  "typeString": "uint32"
+                },
+                "typeName": {
+                  "id": 121,
+                  "name": "uint32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "129:6:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "Kitty",
+            "nodeType": "StructDefinition",
+            "scope": 193,
+            "src": "54:100:1",
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 126,
+            "name": "kitties",
+            "nodeType": "VariableDeclaration",
+            "scope": 193,
+            "src": "162:22:1",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_array$_t_struct$_Kitty_$123_storage_$dyn_storage",
+              "typeString": "struct KittyCore.Kitty[]"
+            },
+            "typeName": {
+              "baseType": {
+                "contractScope": null,
+                "id": 124,
+                "name": "Kitty",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 123,
+                "src": "162:5:1",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_Kitty_$123_storage_ptr",
+                  "typeString": "struct KittyCore.Kitty"
+                }
+              },
+              "id": 125,
+              "length": null,
+              "nodeType": "ArrayTypeName",
+              "src": "162:7:1",
+              "typeDescriptions": {
+                "typeIdentifier": "t_array$_t_struct$_Kitty_$123_storage_$dyn_storage_ptr",
+                "typeString": "struct KittyCore.Kitty[]"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 130,
+            "name": "kittyToOwner",
+            "nodeType": "VariableDeclaration",
+            "scope": 193,
+            "src": "191:48:1",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_address_$",
+              "typeString": "mapping(uint256 => address)"
+            },
+            "typeName": {
+              "id": 129,
+              "keyType": {
+                "id": 127,
+                "name": "uint256",
+                "nodeType": "ElementaryTypeName",
+                "src": "200:7:1",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "191:28:1",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_address_$",
+                "typeString": "mapping(uint256 => address)"
+              },
+              "valueType": {
+                "id": 128,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "211:7:1",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 165,
+              "nodeType": "Block",
+              "src": "313:284:1",
+              "statements": [
+                {
+                  "assignments": [
+                    138
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 138,
+                      "name": "_kitty",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 166,
+                      "src": "324:19:1",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Kitty_$123_memory_ptr",
+                        "typeString": "struct KittyCore.Kitty"
+                      },
+                      "typeName": {
+                        "contractScope": null,
+                        "id": 137,
+                        "name": "Kitty",
+                        "nodeType": "UserDefinedTypeName",
+                        "referencedDeclaration": 123,
+                        "src": "324:5:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Kitty_$123_storage_ptr",
+                          "typeString": "struct KittyCore.Kitty"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 146,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 140,
+                        "name": "_genes",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 132,
+                        "src": "374:6:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "id": 142,
+                            "name": "now",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 1518,
+                            "src": "413:3:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          ],
+                          "id": 141,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "lValueRequested": false,
+                          "nodeType": "ElementaryTypeNameExpression",
+                          "src": "406:6:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_uint64_$",
+                            "typeString": "type(uint64)"
+                          },
+                          "typeName": "uint64"
+                        },
+                        "id": 143,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "typeConversion",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "406:11:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint64",
+                          "typeString": "uint64"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "31",
+                        "id": 144,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "number",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "444:1:1",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_rational_1_by_1",
+                          "typeString": "int_const 1"
+                        },
+                        "value": "1"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": null,
+                      "id": 139,
+                      "name": "Kitty",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 123,
+                      "src": "346:5:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_type$_t_struct$_Kitty_$123_storage_ptr_$",
+                        "typeString": "type(struct KittyCore.Kitty storage pointer)"
+                      }
+                    },
+                    "id": 145,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "structConstructorCall",
+                    "lValueRequested": false,
+                    "names": [
+                      "genes",
+                      "birthTime",
+                      "generation"
+                    ],
+                    "nodeType": "FunctionCall",
+                    "src": "346:111:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Kitty_$123_memory",
+                      "typeString": "struct KittyCore.Kitty memory"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "324:133:1"
+                },
+                {
+                  "assignments": [
+                    148
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 148,
+                      "name": "newKittyId",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 166,
+                      "src": "468:18:1",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "typeName": {
+                        "id": 147,
+                        "name": "uint256",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "468:7:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 155,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "commonType": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    },
+                    "id": 154,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "argumentTypes": null,
+                      "arguments": [
+                        {
+                          "argumentTypes": null,
+                          "id": 151,
+                          "name": "_kitty",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 138,
+                          "src": "502:6:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Kitty_$123_memory_ptr",
+                            "typeString": "struct KittyCore.Kitty memory"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_struct$_Kitty_$123_memory_ptr",
+                            "typeString": "struct KittyCore.Kitty memory"
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 149,
+                          "name": "kitties",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 126,
+                          "src": "489:7:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_array$_t_struct$_Kitty_$123_storage_$dyn_storage",
+                            "typeString": "struct KittyCore.Kitty storage ref[] storage ref"
+                          }
+                        },
+                        "id": 150,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "push",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": null,
+                        "src": "489:12:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_function_arraypush_nonpayable$_t_struct$_Kitty_$123_storage_$returns$_t_uint256_$",
+                          "typeString": "function (struct KittyCore.Kitty storage ref) returns (uint256)"
+                        }
+                      },
+                      "id": 152,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "functionCall",
+                      "lValueRequested": false,
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "489:20:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "-",
+                    "rightExpression": {
+                      "argumentTypes": null,
+                      "hexValue": "31",
+                      "id": 153,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "512:1:1",
+                      "subdenomination": null,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_rational_1_by_1",
+                        "typeString": "int_const 1"
+                      },
+                      "value": "1"
+                    },
+                    "src": "489:24:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "468:45:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 161,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "baseExpression": {
+                        "argumentTypes": null,
+                        "id": 156,
+                        "name": "kittyToOwner",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 130,
+                        "src": "524:12:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_address_$",
+                          "typeString": "mapping(uint256 => address)"
+                        }
+                      },
+                      "id": 158,
+                      "indexExpression": {
+                        "argumentTypes": null,
+                        "id": 157,
+                        "name": "newKittyId",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 148,
+                        "src": "537:10:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "524:24:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 159,
+                        "name": "msg",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1516,
+                        "src": "551:3:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_magic_message",
+                          "typeString": "msg"
+                        }
+                      },
+                      "id": 160,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "sender",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "551:10:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "524:37:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 162,
+                  "nodeType": "ExpressionStatement",
+                  "src": "524:37:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 163,
+                    "name": "newKittyId",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 148,
+                    "src": "579:10:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 136,
+                  "id": 164,
+                  "nodeType": "Return",
+                  "src": "572:17:1"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 166,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "createTestKitty",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 133,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 132,
+                  "name": "_genes",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 166,
+                  "src": "273:14:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 131,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "273:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "272:16:1"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 136,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 135,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 166,
+                  "src": "307:4:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 134,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "307:4:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "306:6:1"
+            },
+            "scope": 193,
+            "src": "248:349:1",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": {
+              "id": 191,
+              "nodeType": "Block",
+              "src": "745:169:1",
+              "statements": [
+                {
+                  "assignments": [
+                    178
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 178,
+                      "name": "kitty",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 192,
+                      "src": "756:19:1",
+                      "stateVariable": false,
+                      "storageLocation": "storage",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Kitty_$123_storage_ptr",
+                        "typeString": "struct KittyCore.Kitty"
+                      },
+                      "typeName": {
+                        "contractScope": null,
+                        "id": 177,
+                        "name": "Kitty",
+                        "nodeType": "UserDefinedTypeName",
+                        "referencedDeclaration": 123,
+                        "src": "756:5:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Kitty_$123_storage_ptr",
+                          "typeString": "struct KittyCore.Kitty"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 182,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "baseExpression": {
+                      "argumentTypes": null,
+                      "id": 179,
+                      "name": "kitties",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 126,
+                      "src": "778:7:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_array$_t_struct$_Kitty_$123_storage_$dyn_storage",
+                        "typeString": "struct KittyCore.Kitty storage ref[] storage ref"
+                      }
+                    },
+                    "id": 181,
+                    "indexExpression": {
+                      "argumentTypes": null,
+                      "id": 180,
+                      "name": "_id",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 168,
+                      "src": "786:3:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "778:12:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Kitty_$123_storage",
+                      "typeString": "struct KittyCore.Kitty storage ref"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "756:34:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "components": [
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 183,
+                          "name": "kitty",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 178,
+                          "src": "823:5:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Kitty_$123_storage_ptr",
+                            "typeString": "struct KittyCore.Kitty storage pointer"
+                          }
+                        },
+                        "id": 184,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "genes",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 118,
+                        "src": "823:11:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 185,
+                          "name": "kitty",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 178,
+                          "src": "849:5:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Kitty_$123_storage_ptr",
+                            "typeString": "struct KittyCore.Kitty storage pointer"
+                          }
+                        },
+                        "id": 186,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "birthTime",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 120,
+                        "src": "849:15:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint64",
+                          "typeString": "uint64"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 187,
+                          "name": "kitty",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 178,
+                          "src": "879:5:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Kitty_$123_storage_ptr",
+                            "typeString": "struct KittyCore.Kitty storage pointer"
+                          }
+                        },
+                        "id": 188,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "generation",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 122,
+                        "src": "879:16:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint32",
+                          "typeString": "uint32"
+                        }
+                      }
+                    ],
+                    "id": 189,
+                    "isConstant": false,
+                    "isInlineArray": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "TupleExpression",
+                    "src": "808:98:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$_t_uint256_$_t_uint64_$_t_uint32_$",
+                      "typeString": "tuple(uint256,uint64,uint32)"
+                    }
+                  },
+                  "functionReturnParameters": 176,
+                  "id": 190,
+                  "nodeType": "Return",
+                  "src": "801:105:1"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 192,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getKitty",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 169,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 168,
+                  "name": "_id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 192,
+                  "src": "623:11:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 167,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "623:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "622:13:1"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 176,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 171,
+                  "name": "genes",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 192,
+                  "src": "669:13:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 170,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "669:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 173,
+                  "name": "birthTime",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 192,
+                  "src": "693:16:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint64",
+                    "typeString": "uint64"
+                  },
+                  "typeName": {
+                    "id": 172,
+                    "name": "uint64",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "693:6:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint64",
+                      "typeString": "uint64"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 175,
+                  "name": "generation",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 192,
+                  "src": "720:17:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  },
+                  "typeName": {
+                    "id": 174,
+                    "name": "uint32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "720:6:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint32",
+                      "typeString": "uint32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "658:86:1"
+            },
+            "scope": 193,
+            "src": "605:309:1",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 194,
+        "src": "28:889:1"
+      }
+    ],
+    "src": "0:917:1"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/KittyCore.sol",
+      "exportedSymbols": {
+        "KittyCore": [
+          193
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.4",
+            ".25"
+          ]
+        },
+        "id": 116,
+        "name": "PragmaDirective",
+        "src": "0:24:1"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            193
+          ],
+          "name": "KittyCore",
+          "scope": 194
+        },
+        "children": [
+          {
+            "attributes": {
+              "canonicalName": "KittyCore.Kitty",
+              "name": "Kitty",
+              "scope": 193,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "genes",
+                  "scope": 123,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "uint256",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "uint256",
+                      "type": "uint256"
+                    },
+                    "id": 117,
+                    "name": "ElementaryTypeName",
+                    "src": "78:7:1"
+                  }
+                ],
+                "id": 118,
+                "name": "VariableDeclaration",
+                "src": "78:13:1"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "birthTime",
+                  "scope": 123,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "uint64",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "uint64",
+                      "type": "uint64"
+                    },
+                    "id": 119,
+                    "name": "ElementaryTypeName",
+                    "src": "102:6:1"
+                  }
+                ],
+                "id": 120,
+                "name": "VariableDeclaration",
+                "src": "102:16:1"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "generation",
+                  "scope": 123,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "uint32",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "uint32",
+                      "type": "uint32"
+                    },
+                    "id": 121,
+                    "name": "ElementaryTypeName",
+                    "src": "129:6:1"
+                  }
+                ],
+                "id": 122,
+                "name": "VariableDeclaration",
+                "src": "129:17:1"
+              }
+            ],
+            "id": 123,
+            "name": "StructDefinition",
+            "src": "54:100:1"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "name": "kitties",
+              "scope": 193,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "struct KittyCore.Kitty[]",
+              "value": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "length": null,
+                  "type": "struct KittyCore.Kitty[]"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "contractScope": null,
+                      "name": "Kitty",
+                      "referencedDeclaration": 123,
+                      "type": "struct KittyCore.Kitty"
+                    },
+                    "id": 124,
+                    "name": "UserDefinedTypeName",
+                    "src": "162:5:1"
+                  }
+                ],
+                "id": 125,
+                "name": "ArrayTypeName",
+                "src": "162:7:1"
+              }
+            ],
+            "id": 126,
+            "name": "VariableDeclaration",
+            "src": "162:22:1"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "name": "kittyToOwner",
+              "scope": 193,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "mapping(uint256 => address)",
+              "value": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "type": "mapping(uint256 => address)"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "uint256",
+                      "type": "uint256"
+                    },
+                    "id": 127,
+                    "name": "ElementaryTypeName",
+                    "src": "200:7:1"
+                  },
+                  {
+                    "attributes": {
+                      "name": "address",
+                      "type": "address"
+                    },
+                    "id": 128,
+                    "name": "ElementaryTypeName",
+                    "src": "211:7:1"
+                  }
+                ],
+                "id": 129,
+                "name": "Mapping",
+                "src": "191:28:1"
+              }
+            ],
+            "id": 130,
+            "name": "VariableDeclaration",
+            "src": "191:48:1"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "createTestKitty",
+              "payable": false,
+              "scope": 193,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_genes",
+                      "scope": 166,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 131,
+                        "name": "ElementaryTypeName",
+                        "src": "273:7:1"
+                      }
+                    ],
+                    "id": 132,
+                    "name": "VariableDeclaration",
+                    "src": "273:14:1"
+                  }
+                ],
+                "id": 133,
+                "name": "ParameterList",
+                "src": "272:16:1"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 166,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 134,
+                        "name": "ElementaryTypeName",
+                        "src": "307:4:1"
+                      }
+                    ],
+                    "id": 135,
+                    "name": "VariableDeclaration",
+                    "src": "307:4:1"
+                  }
+                ],
+                "id": 136,
+                "name": "ParameterList",
+                "src": "306:6:1"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "assignments": [
+                        138
+                      ]
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "constant": false,
+                          "name": "_kitty",
+                          "scope": 166,
+                          "stateVariable": false,
+                          "storageLocation": "memory",
+                          "type": "struct KittyCore.Kitty",
+                          "value": null,
+                          "visibility": "internal"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "contractScope": null,
+                              "name": "Kitty",
+                              "referencedDeclaration": 123,
+                              "type": "struct KittyCore.Kitty"
+                            },
+                            "id": 137,
+                            "name": "UserDefinedTypeName",
+                            "src": "324:5:1"
+                          }
+                        ],
+                        "id": 138,
+                        "name": "VariableDeclaration",
+                        "src": "324:19:1"
+                      },
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": true,
+                          "lValueRequested": false,
+                          "names": [
+                            "genes",
+                            "birthTime",
+                            "generation"
+                          ],
+                          "type": "struct KittyCore.Kitty memory",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 123,
+                              "type": "type(struct KittyCore.Kitty storage pointer)",
+                              "value": "Kitty"
+                            },
+                            "id": 139,
+                            "name": "Identifier",
+                            "src": "346:5:1"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 132,
+                              "type": "uint256",
+                              "value": "_genes"
+                            },
+                            "id": 140,
+                            "name": "Identifier",
+                            "src": "374:6:1"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "isStructConstructorCall": false,
+                              "lValueRequested": false,
+                              "names": [
+                                null
+                              ],
+                              "type": "uint64",
+                              "type_conversion": true
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": [
+                                    {
+                                      "typeIdentifier": "t_uint256",
+                                      "typeString": "uint256"
+                                    }
+                                  ],
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": true,
+                                  "lValueRequested": false,
+                                  "type": "type(uint64)",
+                                  "value": "uint64"
+                                },
+                                "id": 141,
+                                "name": "ElementaryTypeNameExpression",
+                                "src": "406:6:1"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 1518,
+                                  "type": "uint256",
+                                  "value": "now"
+                                },
+                                "id": 142,
+                                "name": "Identifier",
+                                "src": "413:3:1"
+                              }
+                            ],
+                            "id": 143,
+                            "name": "FunctionCall",
+                            "src": "406:11:1"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "hexvalue": "31",
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "subdenomination": null,
+                              "token": "number",
+                              "type": "int_const 1",
+                              "value": "1"
+                            },
+                            "id": 144,
+                            "name": "Literal",
+                            "src": "444:1:1"
+                          }
+                        ],
+                        "id": 145,
+                        "name": "FunctionCall",
+                        "src": "346:111:1"
+                      }
+                    ],
+                    "id": 146,
+                    "name": "VariableDeclarationStatement",
+                    "src": "324:133:1"
+                  },
+                  {
+                    "attributes": {
+                      "assignments": [
+                        148
+                      ]
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "constant": false,
+                          "name": "newKittyId",
+                          "scope": 166,
+                          "stateVariable": false,
+                          "storageLocation": "default",
+                          "type": "uint256",
+                          "value": null,
+                          "visibility": "internal"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "name": "uint256",
+                              "type": "uint256"
+                            },
+                            "id": 147,
+                            "name": "ElementaryTypeName",
+                            "src": "468:7:1"
+                          }
+                        ],
+                        "id": 148,
+                        "name": "VariableDeclaration",
+                        "src": "468:18:1"
+                      },
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "commonType": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          },
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "-",
+                          "type": "uint256"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "isStructConstructorCall": false,
+                              "lValueRequested": false,
+                              "names": [
+                                null
+                              ],
+                              "type": "uint256",
+                              "type_conversion": false
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": [
+                                    {
+                                      "typeIdentifier": "t_struct$_Kitty_$123_memory_ptr",
+                                      "typeString": "struct KittyCore.Kitty memory"
+                                    }
+                                  ],
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "push",
+                                  "referencedDeclaration": null,
+                                  "type": "function (struct KittyCore.Kitty storage ref) returns (uint256)"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 126,
+                                      "type": "struct KittyCore.Kitty storage ref[] storage ref",
+                                      "value": "kitties"
+                                    },
+                                    "id": 149,
+                                    "name": "Identifier",
+                                    "src": "489:7:1"
+                                  }
+                                ],
+                                "id": 150,
+                                "name": "MemberAccess",
+                                "src": "489:12:1"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 138,
+                                  "type": "struct KittyCore.Kitty memory",
+                                  "value": "_kitty"
+                                },
+                                "id": 151,
+                                "name": "Identifier",
+                                "src": "502:6:1"
+                              }
+                            ],
+                            "id": 152,
+                            "name": "FunctionCall",
+                            "src": "489:20:1"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "hexvalue": "31",
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "subdenomination": null,
+                              "token": "number",
+                              "type": "int_const 1",
+                              "value": "1"
+                            },
+                            "id": 153,
+                            "name": "Literal",
+                            "src": "512:1:1"
+                          }
+                        ],
+                        "id": 154,
+                        "name": "BinaryOperation",
+                        "src": "489:24:1"
+                      }
+                    ],
+                    "id": 155,
+                    "name": "VariableDeclarationStatement",
+                    "src": "468:45:1"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "address"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": true,
+                              "type": "address"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 130,
+                                  "type": "mapping(uint256 => address)",
+                                  "value": "kittyToOwner"
+                                },
+                                "id": 156,
+                                "name": "Identifier",
+                                "src": "524:12:1"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 148,
+                                  "type": "uint256",
+                                  "value": "newKittyId"
+                                },
+                                "id": 157,
+                                "name": "Identifier",
+                                "src": "537:10:1"
+                              }
+                            ],
+                            "id": 158,
+                            "name": "IndexAccess",
+                            "src": "524:24:1"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "sender",
+                              "referencedDeclaration": null,
+                              "type": "address"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 1516,
+                                  "type": "msg",
+                                  "value": "msg"
+                                },
+                                "id": 159,
+                                "name": "Identifier",
+                                "src": "551:3:1"
+                              }
+                            ],
+                            "id": 160,
+                            "name": "MemberAccess",
+                            "src": "551:10:1"
+                          }
+                        ],
+                        "id": 161,
+                        "name": "Assignment",
+                        "src": "524:37:1"
+                      }
+                    ],
+                    "id": 162,
+                    "name": "ExpressionStatement",
+                    "src": "524:37:1"
+                  },
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 136
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "overloadedDeclarations": [
+                            null
+                          ],
+                          "referencedDeclaration": 148,
+                          "type": "uint256",
+                          "value": "newKittyId"
+                        },
+                        "id": 163,
+                        "name": "Identifier",
+                        "src": "579:10:1"
+                      }
+                    ],
+                    "id": 164,
+                    "name": "Return",
+                    "src": "572:17:1"
+                  }
+                ],
+                "id": 165,
+                "name": "Block",
+                "src": "313:284:1"
+              }
+            ],
+            "id": 166,
+            "name": "FunctionDefinition",
+            "src": "248:349:1"
+          },
+          {
+            "attributes": {
+              "constant": true,
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "getKitty",
+              "payable": false,
+              "scope": 193,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_id",
+                      "scope": 192,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 167,
+                        "name": "ElementaryTypeName",
+                        "src": "623:7:1"
+                      }
+                    ],
+                    "id": 168,
+                    "name": "VariableDeclaration",
+                    "src": "623:11:1"
+                  }
+                ],
+                "id": 169,
+                "name": "ParameterList",
+                "src": "622:13:1"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "genes",
+                      "scope": 192,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 170,
+                        "name": "ElementaryTypeName",
+                        "src": "669:7:1"
+                      }
+                    ],
+                    "id": 171,
+                    "name": "VariableDeclaration",
+                    "src": "669:13:1"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "birthTime",
+                      "scope": 192,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint64",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint64",
+                          "type": "uint64"
+                        },
+                        "id": 172,
+                        "name": "ElementaryTypeName",
+                        "src": "693:6:1"
+                      }
+                    ],
+                    "id": 173,
+                    "name": "VariableDeclaration",
+                    "src": "693:16:1"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "generation",
+                      "scope": 192,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint32",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint32",
+                          "type": "uint32"
+                        },
+                        "id": 174,
+                        "name": "ElementaryTypeName",
+                        "src": "720:6:1"
+                      }
+                    ],
+                    "id": 175,
+                    "name": "VariableDeclaration",
+                    "src": "720:17:1"
+                  }
+                ],
+                "id": 176,
+                "name": "ParameterList",
+                "src": "658:86:1"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "assignments": [
+                        178
+                      ]
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "constant": false,
+                          "name": "kitty",
+                          "scope": 192,
+                          "stateVariable": false,
+                          "storageLocation": "storage",
+                          "type": "struct KittyCore.Kitty",
+                          "value": null,
+                          "visibility": "internal"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "contractScope": null,
+                              "name": "Kitty",
+                              "referencedDeclaration": 123,
+                              "type": "struct KittyCore.Kitty"
+                            },
+                            "id": 177,
+                            "name": "UserDefinedTypeName",
+                            "src": "756:5:1"
+                          }
+                        ],
+                        "id": 178,
+                        "name": "VariableDeclaration",
+                        "src": "756:19:1"
+                      },
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "type": "struct KittyCore.Kitty storage ref"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 126,
+                              "type": "struct KittyCore.Kitty storage ref[] storage ref",
+                              "value": "kitties"
+                            },
+                            "id": 179,
+                            "name": "Identifier",
+                            "src": "778:7:1"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 168,
+                              "type": "uint256",
+                              "value": "_id"
+                            },
+                            "id": 180,
+                            "name": "Identifier",
+                            "src": "786:3:1"
+                          }
+                        ],
+                        "id": 181,
+                        "name": "IndexAccess",
+                        "src": "778:12:1"
+                      }
+                    ],
+                    "id": 182,
+                    "name": "VariableDeclarationStatement",
+                    "src": "756:34:1"
+                  },
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 176
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isInlineArray": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "type": "tuple(uint256,uint64,uint32)"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "genes",
+                              "referencedDeclaration": 118,
+                              "type": "uint256"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 178,
+                                  "type": "struct KittyCore.Kitty storage pointer",
+                                  "value": "kitty"
+                                },
+                                "id": 183,
+                                "name": "Identifier",
+                                "src": "823:5:1"
+                              }
+                            ],
+                            "id": 184,
+                            "name": "MemberAccess",
+                            "src": "823:11:1"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "birthTime",
+                              "referencedDeclaration": 120,
+                              "type": "uint64"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 178,
+                                  "type": "struct KittyCore.Kitty storage pointer",
+                                  "value": "kitty"
+                                },
+                                "id": 185,
+                                "name": "Identifier",
+                                "src": "849:5:1"
+                              }
+                            ],
+                            "id": 186,
+                            "name": "MemberAccess",
+                            "src": "849:15:1"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "generation",
+                              "referencedDeclaration": 122,
+                              "type": "uint32"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 178,
+                                  "type": "struct KittyCore.Kitty storage pointer",
+                                  "value": "kitty"
+                                },
+                                "id": 187,
+                                "name": "Identifier",
+                                "src": "879:5:1"
+                              }
+                            ],
+                            "id": 188,
+                            "name": "MemberAccess",
+                            "src": "879:16:1"
+                          }
+                        ],
+                        "id": 189,
+                        "name": "TupleExpression",
+                        "src": "808:98:1"
+                      }
+                    ],
+                    "id": 190,
+                    "name": "Return",
+                    "src": "801:105:1"
+                  }
+                ],
+                "id": 191,
+                "name": "Block",
+                "src": "745:169:1"
+              }
+            ],
+            "id": 192,
+            "name": "FunctionDefinition",
+            "src": "605:309:1"
+          }
+        ],
+        "id": 193,
+        "name": "ContractDefinition",
+        "src": "28:889:1"
+      }
+    ],
+    "id": 194,
+    "name": "SourceUnit",
+    "src": "0:917:1"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.25+commit.59dbf8f1.Emscripten.clang"
+  },
+  "networks": {
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0xC81144218561CE2c84cE650d4B0eB8B4122e5879",
+      "transactionHash": "0xbff0b83c940dde30c5f1c2b9bb55468db66e45e7edb2c3762af514c782b65baf"
+    }
+  },
+  "schemaVersion": "3.4.4",
+  "updatedAt": "2025-10-16T03:46:12.548Z",
+  "networkType": "ethereum",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

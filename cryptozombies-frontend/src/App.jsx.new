@@ -1,0 +1,342 @@
+import { useEffect, useState, useCallback } from 'react'
+import './App.css'
+import Web3 from 'web3'
+import zombieArtifact from './contracts/ZombieOwnership.json'
+import kittyArtifact from './contracts/KittyCore.json'
+
+function App() {
+  const [web3, setWeb3] = useState(null)
+  const [account, setAccount] = useState(null)
+  const [zombieContract, setZombieContract] = useState(null)
+  const [kittyContract, setKittyContract] = useState(null)
+  const [zombies, setZombies] = useState([])
+  const [kitties, setKitties] = useState([])
+  const [name, setName] = useState('')
+  const [kittyGenes, setKittyGenes] = useState('')
+  const [isInitializing, setIsInitializing] = useState(true)
+  const [error, setError] = useState(null)
+  const DEPLOYER = '0x22D0970775E3CCb1FF250f34971D01cE976b5eF2'
+
+  const refreshZombies = useCallback(async () => {
+    if (!zombieContract || !account) return
+    try {
+      const ids = await zombieContract.methods.getZombiesByOwner(account).call()
+      const arr = []
+      for (let id of ids) {
+        const z = await zombieContract.methods.zombies(id).call()
+        arr.push({ id, name: z.name, dna: z.dna, level: z.level })
+      }
+      setZombies(arr)
+    } catch (err) {
+      console.error('Error fetching zombies:', err)
+    }
+  }, [zombieContract, account])
+
+  const refreshKitties = useCallback(async () => {
+    if (!kittyContract || !account) return
+    try {
+      const balance = await kittyContract.methods.balanceOf(account).call()
+      const arr = []
+      for (let i = 0; i < balance; i++) {
+        const kittyId = await kittyContract.methods.tokenOfOwnerByIndex(account, i).call()
+        const kitty = await kittyContract.methods.getKitty(kittyId).call()
+        arr.push({
+          id: kittyId,
+          genes: kitty.genes,
+          generation: kitty.generation
+        })
+      }
+      setKitties(arr)
+    } catch (err) {
+      console.error('Error fetching kitties:', err)
+    }
+  }, [kittyContract, account])
+
+  const createZombie = useCallback(async () => {
+    if (!zombieContract || !account) return
+    try {
+      const existingZombies = await zombieContract.methods.getZombiesByOwner(account).call()
+      if (existingZombies.length > 0) {
+        alert('You can only create one zombie per account. Please use a different account to create more zombies.')
+        return
+      }
+      
+      await zombieContract.methods.createRandomZombie(name || 'webzombie').send({ 
+        from: account,
+        gas: 300000
+      })
+      await refreshZombies()
+    } catch (err) {
+      console.error('Error creating zombie:', err)
+      if (err.message.includes('revert')) {
+        alert('Failed to create zombie. Each account can only create one zombie.')
+      } else {
+        alert('Error creating zombie. Please make sure you are connected to the correct network and have enough ETH.')
+      }
+    }
+  }, [zombieContract, account, name, refreshZombies])
+
+  const levelUp = useCallback(async (id) => {
+    if (!zombieContract || !account || !web3) return
+    try {
+      await zombieContract.methods.levelUp(id).send({ 
+        from: account, 
+        value: web3.utils.toWei('0.001', 'ether'),
+        gas: 300000
+      })
+      await refreshZombies()
+    } catch (err) {
+      console.error('Error leveling up:', err)
+      alert('Failed to level up. Make sure you have enough ETH (0.001 ETH required).')
+    }
+  }, [zombieContract, account, web3, refreshZombies])
+
+  const createKitty = useCallback(async () => {
+    if (!kittyContract || !account) return
+    try {
+      const genes = kittyGenes || Math.floor(Math.random() * 10**16).toString()
+      await kittyContract.methods.createTestKitty(genes).send({
+        from: account,
+        gas: 300000
+      })
+      alert('Successfully created a new kitty!')
+      await refreshKitties()
+    } catch (err) {
+      console.error('Error creating kitty:', err)
+      alert('Failed to create kitty. Please try again.')
+    }
+  }, [kittyContract, account, kittyGenes, refreshKitties])
+
+  const feedOnKitty = useCallback(async (zombieId) => {
+    if (!zombieContract || !kittyContract || !account) return
+    try {
+      if (kitties.length === 0) {
+        const createNew = window.confirm('No kitties found. Would you like to create a new kitty to feed on?')
+        if (createNew) {
+          await createKitty()
+        } else {
+          return
+        }
+      }
+
+      const targetKittyId = prompt('Enter kitty ID to feed on:', kitties.length > 0 ? kitties[0].id : '')
+      if (!targetKittyId) return
+
+      try {
+        await kittyContract.methods.getKitty(targetKittyId).call()
+      } catch {
+        alert('Invalid kitty ID. Please make sure the kitty exists.')
+        return
+      }
+
+      await zombieContract.methods.feedOnKitty(zombieId, targetKittyId).send({ 
+        from: account,
+        gas: 300000
+      })
+      alert('Successfully fed your zombie with kitty #' + targetKittyId)
+      await refreshZombies()
+    } catch (err) {
+      console.error('Error feeding on kitty:', err)
+      alert('Failed to feed on kitty. Make sure the kitty exists and you have permission to interact with it.')
+    }
+  }, [zombieContract, kittyContract, account, kitties, createKitty, refreshZombies])
+
+  const handleAccountsChanged = useCallback((accounts) => {
+    if (accounts.length === 0) {
+      setAccount(null)
+      setError('Please connect your MetaMask wallet')
+      setZombies([])
+      setKitties([])
+    } else if (accounts[0] !== account) {
+      setAccount(accounts[0])
+      setZombies([])
+      setKitties([])
+    }
+  }, [account])
+
+  const handleChainChanged = useCallback(() => {
+    window.location.reload()
+  }, [])
+
+  const handleDisconnect = useCallback(() => {
+    setError('Please connect your MetaMask wallet')
+    setAccount(null)
+    setZombies([])
+    setKitties([])
+  }, [])
+
+  const initWeb3 = useCallback(async () => {
+    try {
+      setIsInitializing(true)
+      setError(null)
+
+      if (!window.ethereum) {
+        throw new Error('Please install MetaMask')
+      }
+
+      try {
+        await window.ethereum.request({ method: 'eth_requestAccounts' })
+      } catch (err) {
+        throw new Error('Please connect your MetaMask wallet')
+      }
+
+      const w3 = new Web3(window.ethereum)
+      setWeb3(w3)
+
+      const netId = await w3.eth.net.getId()
+      const accounts = await w3.eth.getAccounts()
+      
+      if (!accounts || accounts.length === 0) {
+        throw new Error('No accounts found. Please connect your MetaMask wallet')
+      }
+      
+      setAccount(accounts[0])
+
+      // Initialize Zombie contract
+      const zombieDeployed = zombieArtifact.networks[netId] || zombieArtifact.networks['5777']
+      if (!zombieDeployed) {
+        throw new Error('Zombie contract not deployed to detected network')
+      }
+      const zombieInstance = new w3.eth.Contract(zombieArtifact.abi, zombieDeployed.address)
+      setZombieContract(zombieInstance)
+
+      // Initialize Kitty contract
+      const kittyDeployed = kittyArtifact.networks[netId] || kittyArtifact.networks['5777']
+      if (!kittyDeployed) {
+        throw new Error('Kitty contract not deployed to detected network')
+      }
+      const kittyInstance = new w3.eth.Contract(kittyArtifact.abi, kittyDeployed.address)
+      setKittyContract(kittyInstance)
+      
+      setIsInitializing(false)
+    } catch (err) {
+      console.error('Initialization error:', err)
+      setError(err.message)
+      setIsInitializing(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    initWeb3()
+  }, [initWeb3])
+
+  useEffect(() => {
+    if (!window.ethereum) return
+
+    window.ethereum.on('accountsChanged', handleAccountsChanged)
+    window.ethereum.on('chainChanged', handleChainChanged)
+    window.ethereum.on('disconnect', handleDisconnect)
+
+    return () => {
+      window.ethereum.removeListener('accountsChanged', handleAccountsChanged)
+      window.ethereum.removeListener('chainChanged', handleChainChanged)
+      window.ethereum.removeListener('disconnect', handleDisconnect)
+    }
+  }, [handleAccountsChanged, handleChainChanged, handleDisconnect])
+
+  useEffect(() => {
+    if (zombieContract && kittyContract && account) {
+      refreshZombies()
+      refreshKitties()
+    }
+  }, [zombieContract, kittyContract, account, refreshZombies, refreshKitties])
+
+  return (
+    <div className="App">
+      <h1>CryptoZombies DApp</h1>
+      
+      {isInitializing ? (
+        <div>Loading...</div>
+      ) : error ? (
+        <div style={{ padding: 12, border: '1px solid #f5c6cb', background: '#fff0f0', color: '#721c24' }}>
+          <strong>Error:</strong> {error}
+          <button 
+            style={{ marginLeft: 8 }} 
+            onClick={initWeb3}
+          >
+            Retry Connection
+          </button>
+        </div>
+      ) : !account ? (
+        <div>
+          <p>Please connect your MetaMask wallet to continue</p>
+          <button onClick={initWeb3}>Connect Wallet</button>
+        </div>
+      ) : (
+        <div>
+          <div>Connected Account: {account}</div>
+
+          {account.toLowerCase() !== DEPLOYER.toLowerCase() && (
+            <div style={{ marginTop: 12, padding: 12, border: '1px solid #f5c6cb', background: '#fff0f0', color: '#721c24' }}>
+              <strong>Warning:</strong> Your connected MetaMask account does not match the deployer account used for migrations.
+              <div style={{ marginTop: 6 }}>
+                Deployer address: <code>{DEPLOYER}</code>
+                <button style={{ marginLeft: 8 }} onClick={() => navigator.clipboard.writeText(DEPLOYER)}>Copy address</button>
+              </div>
+              <div style={{ marginTop: 8 }}>
+                To fix: switch MetaMask to the deployer account or import the private key from Ganache (Accounts → key icon). After switching, refresh this page.
+              </div>
+            </div>
+          )}
+
+          <div style={{ marginTop: 12 }}>
+            <div style={{ marginBottom: 20 }}>
+              <h3>Create Zombie</h3>
+              <input 
+                placeholder="Zombie name" 
+                value={name} 
+                onChange={e => setName(e.target.value)}
+                style={{ marginRight: 8 }}
+              />
+              <button onClick={createZombie} style={{ marginRight: 8 }}>Create Random Zombie</button>
+              <button onClick={refreshZombies}>Refresh Zombies</button>
+            </div>
+
+            <div style={{ marginBottom: 20 }}>
+              <h3>Create Kitty</h3>
+              <input 
+                placeholder="Kitty genes (optional)" 
+                value={kittyGenes} 
+                onChange={e => setKittyGenes(e.target.value)}
+                style={{ marginRight: 8 }}
+              />
+              <button onClick={createKitty} style={{ marginRight: 8 }}>Create Test Kitty</button>
+              <button onClick={refreshKitties}>Refresh Kitties</button>
+            </div>
+          </div>
+
+          <div style={{ marginTop: 20 }}>
+            <h2>Your Zombies</h2>
+            {zombies.length === 0 && <div>No zombies found</div>}
+            {zombies.map(z => (
+              <div key={z.id} style={{ border: '1px solid #ccc', padding: 8, margin: 8, borderRadius: 4 }}>
+                <div>Id: {z.id}</div>
+                <div>Name: {z.name}</div>
+                <div>DNA: {z.dna}</div>
+                <div>Level: {z.level}</div>
+                <div style={{ marginTop: 8 }}>
+                  <button onClick={() => levelUp(z.id)} style={{ marginRight: 8 }}>Level Up (0.001 ETH)</button>
+                  <button onClick={() => feedOnKitty(z.id)}>Feed on Kitty</button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ marginTop: 20 }}>
+            <h2>Your Kitties</h2>
+            {kitties.length === 0 && <div>No kitties found</div>}
+            {kitties.map(k => (
+              <div key={k.id} style={{ border: '1px solid #ccc', padding: 8, margin: 8, borderRadius: 4 }}>
+                <div>Id: {k.id}</div>
+                <div>Genes: {k.genes}</div>
+                <div>Generation: {k.generation}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export default App
