@@ -259,13 +259,33 @@ function App() {
       }
 
       console.log('Calling feedOnKitty with params:', { zombieIdNumber, targetKittyIdNumber })
-      
+
       console.log('Preparing to feed zombie...')
-      
-      // Set a fixed gas limit since we've already validated the conditions
+
+      // Sanity checks: ensure contracts have addresses
+      if (!zombieContract || !zombieContract.options || !zombieContract.options.address) {
+        throw new Error('Zombie contract not initialized')
+      }
+      if (!kittyContract || !kittyContract.options || !kittyContract.options.address) {
+        throw new Error('Kitty contract not initialized')
+      }
+
+      // Estimate gas first to get clearer errors from the node instead of blindly sending
+      let gasLimit = 300000
+      try {
+        const estimated = await zombieContract.methods.feedOnKitty(zombieIdNumber, targetKittyIdNumber).estimateGas({ from: account })
+        console.log('Estimated gas for feedOnKitty:', estimated)
+        // add 20% buffer but cap to avoid runaway values
+        gasLimit = Math.min(Math.ceil(estimated * 1.2), 800000)
+      } catch (estErr) {
+        console.warn('Gas estimation failed for feedOnKitty:', estErr)
+        // Re-throw a friendly message to surface the underlying RPC error
+        throw new Error('Gas estimation failed. RPC error: ' + (estErr.message || estErr))
+      }
+
       const tx = await zombieContract.methods.feedOnKitty(zombieIdNumber, targetKittyIdNumber).send({
         from: account,
-        gas: 300000
+        gas: gasLimit
       })
       console.log('FeedOnKitty transaction result:', tx)
       
@@ -276,7 +296,7 @@ function App() {
       const errorMessage = err.message || 'Unknown error'
       alert('Failed to feed on kitty: ' + errorMessage)
     }
-  }, [zombieContract, kittyContract, account, kitties, createKitty, refreshZombies])
+  }, [zombieContract, kittyContract, account, kitties, createKitty, refreshZombies, refreshKitties])
 
   const handleAccountsChanged = useCallback((accounts) => {
     if (accounts.length === 0) {

@@ -1,16 +1,54 @@
-# React + Vite
+CryptoZombies DApp - Midterm Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Team Members**
+Amit Mittal – 812955029 – [amitmittal@csu.fullerton.edu](mailto:amitmittal@csu.fullerton.edu)~
+Parth Gohil – 871916672 – [pkg@csu.fullerton.edu](mailto:pkg@csu.fullerton.edu)
 
-Currently, two official plugins are available:
+**Project Overview**
+For our midterm project, we developed a decentralized application (DApp) inspired by CryptoZombies, an interactive platform for learning Ethereum smart contract development with Solidity. The DApp allows users to create, customize, and level up their own zombie army and kitties while interacting directly with blockchain smart contracts.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Enhancements Implemented
 
-## React Compiler
+* **Frontend Components Integration**: Built a React-based frontend with Web3 integration to enable seamless blockchain interaction and real-time state updates for zombies and kitties.
+* **Smart Contract Interaction**: Implemented direct smart contract method calls with event handling, gas optimization, and transaction management for efficient blockchain operations.
+* **Deployed on Sepolia Testnet**: Deployed the DApp’s smart contracts on the Sepolia Testnet to simulate real-world blockchain behavior.
+* **Improved User Interface**: Designed a clean, intuitive UI that provides transaction feedback, clear error messages, and dynamic updates based on the user’s account.
+* **MetaMask Integration**: Integrated MetaMask for secure wallet connections, ownership verification, and transaction validation.
+* **Zombie and Kitty Management**: Enabled users to create zombies with custom names, generate test kitties with custom genes, and allow zombies to feed on kitties to create new ones.
+* **Level-Up Mechanism**: Added functionality for zombies to level up by spending 0.001 ETH per level, reinforcing token-based progression.
+* **Dynamic Zombie Cards**: Each zombie’s image is auto-generated using [robohash.org](https://robohash.org/) based on its name and ID, with cards dynamically updating per user account.
+* **Error Handling and Security**: Implemented robust error handling for failed transactions, wallet issues, and contract errors along with security features like cooldown enforcement, ownership checks, and access control.
+* **Backend Enhancements**: Developed a custom kitty smart contract deployed locally on Ganache to facilitate testing and contract interaction.
+* **Automated Contract Address Retrieval**: Automated fetching of the zombieOwnership contract address after deployment, removing hardcoded dependencies in the frontend.
+* **Development Stack**: Utilized Truffle for deployment, Ganache for local blockchain setup, Web3.js for blockchain communication, and React for frontend development.
+* **Custom Build Scripts**: Added scripts to automatically fetch new and updated ABIs from the build folder for frontend synchronization.
+* **User Constraints and Limitations**: Enforced a maximum of six zombies per user, required correct network connection, and ensured ETH availability for executing transactions.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
+Deployment on Sepolia Testnet
+To deploy and test the project on the Sepolia Testnet, follow these steps:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+* Open Remix IDE and import the project repository from GitHub using: [https://remix.ethereum.org/](https://remix.ethereum.org/)
+* Add the Sepolia Testnet network to MetaMask. Network configuration details are available at [https://chainid.network/](https://chainid.network/)
+* In Remix, navigate to the **Deploy & Run Transactions** tab, set the environment to **Injected Provider - MetaMask**, and grant the necessary permissions when prompted by MetaMask.
+* Select the **ZombieOwnership** contract from the dropdown and click **Deploy**.
+* Once deployed, verify the transaction confirmation in the Remix console or view the deployment details on [https://sepolia.etherscan.io/block/](https://sepolia.etherscan.io/block/).
+
+Installation and Setup
+To install and run the CryptoZombies DApp locally, follow these steps:
+
+* Clone the repository: `git clone https://github.com/amitmittal117/Cryptozombie-mid-term`
+* Install all required dependencies using: `npm install`
+* Install **Ganache** and add this project to your workspace by referencing the **truffle-config.js** file in the root directory.
+* Connect your **MetaMask** wallet to the local blockchain network and import the accounts generated by Ganache.
+* Compile and deploy the smart contracts on Ganache using: `truffle compile` and `truffle migrate`
+* Launch the frontend application by running: `npm run dev`
+
+Technologies Used
+
+* **Solidity** for writing and managing smart contracts
+* **Truffle** for compiling, deploying, and testing smart contracts
+* **Ganache** for running a local Ethereum blockchain network
+* **Sepolia Testnet** for testing contracts on a public Ethereum test network
+* **Web3.js** for integrating and interacting with the blockchain from the frontend
+* **React** for building the user interface and managing frontend logic
